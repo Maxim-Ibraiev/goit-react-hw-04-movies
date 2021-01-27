@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+
+  border: #000000 solid 4px;
+}
+
+.link {
+  padding: 15px;
+  width: 50%;
+
+  color: #3578e5;
+  text-align: center;
+  text-decoration: none;
+}
+.link:not(:last-child) {
+  border-right: black solid 4px;
+}
+
+.linkAct {
+  color: rgb(9, 211, 172);
+}
