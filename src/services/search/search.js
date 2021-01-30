@@ -16,9 +16,9 @@ function searchMovie(query, page = 1) {
 }
 
 function searchDetails(movieId) {
-  return axios(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`).then(
-    ({ data }) => data
-  );
+  return axios(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`)
+    .then(({ data }) => data)
+    .catch((e) => e);
 }
 
 function searchReviews(movieId, page = 1) {

@@ -4,10 +4,8 @@ import routes from "../../services/routes";
 import Header from "../Header";
 
 const TrendingToday = lazy(() => import("../TrendingToday"));
-const MovieDetailsPage = lazy(() => import("../MovieDetailsPage"));
-const MoviesPage = lazy(() => import("../MoviesPage"));
-const Reviews = lazy(() => import("../Reviews"));
-const Cast = lazy(() => import("../Cast"));
+const MovieDetailsPage = lazy(() => import("../../pages/MovieDetailsPage"));
+const MoviesPage = lazy(() => import("../../pages/MoviesPage"));
 
 function App() {
   return (
@@ -17,20 +15,9 @@ function App() {
         <Switch>
           <Route path={routes.home} exact component={TrendingToday} />
           <Route path={routes.moviesId} component={MovieDetailsPage} />
-          <Route path={routes.movies} exact component={MoviesPage} />
+          <Route path={routes.movies} component={MoviesPage} />
+          <Redirect to={routes.home} />
         </Switch>
-        <Route
-          path={`${routes.moviesId}${routes.reviews}`}
-          exact
-          component={Reviews}
-        />
-        <Route
-          path={`${routes.moviesId}${routes.cast}`}
-          exact
-          component={Cast}
-        />
-
-        <Redirect to={routes.home} />
       </Suspense>
     </>
   );
