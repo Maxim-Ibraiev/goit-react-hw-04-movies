@@ -63,14 +63,7 @@ export default class MoviesPage extends Component {
           <ul>
             {movies.map(({ title, id }) => (
               <li key={id}>
-                <Link
-                  to={{
-                    pathname: `${match.path}/${id}`,
-                    state: { fromQuery: query },
-                  }}
-                >
-                  {title}
-                </Link>
+                <Link to={`${match.path}/${id}?query=${query}`}>{title}</Link>
               </li>
             ))}
           </ul>

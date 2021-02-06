@@ -5,4 +5,5 @@ export default {
   moviesId: "/movies/:id",
   cast: "/cast",
   reviews: "/reviews",
+  query: "query",
 };
