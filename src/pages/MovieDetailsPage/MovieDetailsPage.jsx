@@ -4,6 +4,7 @@ import { Route, Link, Switch, Redirect } from "react-router-dom";
 // import Cast from "../../components/Cast";
 import { searchDetails, getImageUrl } from "../../services/search/search";
 import routes from "../../services/routes";
+import searchParams from "../../services/searchParams";
 import s from "./MovieDetailsPage.module.css";
 
 const Reviews = lazy(() => import("../../components/Reviews"));
@@ -13,16 +14,14 @@ export default class MovieDetailsPage extends Component {
   state = {
     movie: {},
     error: false,
-    query: "",
   };
 
   async componentDidMount() {
     const { history, location } = this.props;
     const { id } = this.props.match.params;
-    const query = new URLSearchParams(location.search).get("query");
+    const query = location.state?.query;
 
-    const movie = await searchDetails(id).catch((e) => {
-      console.log("error in catch");
+    const movie = await searchDetails(id).catch(() => {
       this.setState({ error: true });
     });
 
@@ -32,12 +31,12 @@ export default class MovieDetailsPage extends Component {
       return history.push(routes.home);
     }
 
-    this.setState({ movie, query });
+    this.setState({ movie });
   }
 
   handleGoBack = () => {
     const { location } = this.props;
-    const { query } = this.state;
+    const query = location.state?.query;
     if (query) {
       return `${routes.movies}?query=${query}`;
     }
@@ -54,8 +53,7 @@ export default class MovieDetailsPage extends Component {
       popularity,
       genres,
     } = this.state.movie;
-    const { query } = this.state;
-    console.log(`${routes.moviesId}${routes.reviews}?${routes.query}`);
+
     return (
       <div className={s.container}>
         <Link to={this.handleGoBack}>Go Back</Link>
@@ -77,12 +75,22 @@ export default class MovieDetailsPage extends Component {
 
             <ul>
               <li>
-                <Link to={`${match.url}${routes.cast}?query=${query}`}>
+                <Link
+                  to={{
+                    pathname: `${match.url}${routes.cast}`,
+                    state: this.props.location.state,
+                  }}
+                >
                   Cast
                 </Link>
               </li>
               <li>
-                <Link to={`${match.url}${routes.reviews}?query=${query}`}>
+                <Link
+                  to={{
+                    pathname: `${match.url}${routes.reviews}`,
+                    state: this.props.location.state,
+                  }}
+                >
                   Reviews
                 </Link>
               </li>
@@ -101,7 +109,7 @@ export default class MovieDetailsPage extends Component {
                   component={Cast}
                 />
                 <Route path={routes.moviesId} exact />
-                <Redirect to={routes.home} />
+                {/* <Redirect to={routes.home} /> */}
               </Switch>
             </Suspense>
           </>

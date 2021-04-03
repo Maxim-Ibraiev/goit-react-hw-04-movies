@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import routes from "../../services/routes";
 import Header from "../Header";
+import "../../styles/index.css";
 
 const TrendingToday = lazy(() => import("../TrendingToday"));
 const MovieDetailsPage = lazy(() => import("../../pages/MovieDetailsPage"));
@@ -10,7 +11,7 @@ const MoviesPage = lazy(() => import("../../pages/MoviesPage"));
 function App() {
   return (
     <>
-      <Header />
+      <Route path="/" component={Header} />
       <Suspense fallback={<div>Loading...</div>}>
         <Switch>
           <Route path={routes.home} exact component={TrendingToday} />
