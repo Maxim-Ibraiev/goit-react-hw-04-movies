@@ -1,10 +1,7 @@
 import React, { Component, Suspense, lazy } from "react";
-import { Route, Link, Switch, Redirect } from "react-router-dom";
-// import Reviews from "../../components/Reviews";
-// import Cast from "../../components/Cast";
+import { Route, Link, Switch } from "react-router-dom";
 import { searchDetails, getImageUrl } from "../../services/search/search";
 import routes from "../../services/routes";
-import searchParams from "../../services/searchParams";
 import s from "./MovieDetailsPage.module.css";
 
 const Reviews = lazy(() => import("../../components/Reviews"));
@@ -45,7 +42,7 @@ export default class MovieDetailsPage extends Component {
   };
 
   render() {
-    const { match, location } = this.props;
+    const { match } = this.props;
     const {
       poster_path,
       original_title,
@@ -60,16 +57,24 @@ export default class MovieDetailsPage extends Component {
 
         {genres && (
           <>
-            <div>
-              <img src={getImageUrl(poster_path)} alt={original_title} />
-              <div>
-                <h2>{original_title}</h2> <br />
-                <span>user score {popularity}</span> <br />
-                <span>{overview}</span> <br />
-                "Genres: "
-                {genres.map(({ id, name }) => (
-                  <span key={id}>{name} </span>
-                ))}
+            <div className={s.content}>
+              <img
+                src={getImageUrl(poster_path)}
+                alt={original_title}
+                className={s.img}
+              />
+              <div className={s.info}>
+                <h2 className={s.title}>{original_title}</h2>
+                <p>User score {popularity}</p>
+                <p>{overview}</p>
+                <p>
+                  Genres:
+                  <ul>
+                    {genres.map(({ id, name }) => (
+                      <li key={id}> {name},</li>
+                    ))}
+                  </ul>
+                </p>
               </div>
             </div>
 
@@ -109,7 +114,6 @@ export default class MovieDetailsPage extends Component {
                   component={Cast}
                 />
                 <Route path={routes.moviesId} exact />
-                {/* <Redirect to={routes.home} /> */}
               </Switch>
             </Suspense>
           </>

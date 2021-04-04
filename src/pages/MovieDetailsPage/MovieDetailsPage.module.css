@@ -1,10 +1,24 @@
 .container {
-  max-width: 500px;
+  width: 100%;
 
   margin-top: 15px;
-  margin-left: auto;
-  margin-right: auto;
   padding: 15px;
 
   border: #333 solid 2px;
+}
+
+.content {
+  display: flex;
+}
+.img {
+  margin-right: 60px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 30px;
 }

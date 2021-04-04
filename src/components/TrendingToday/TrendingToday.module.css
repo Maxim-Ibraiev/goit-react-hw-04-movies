@@ -1,0 +1,41 @@
+.wrapper {
+  position: relative;
+}
+
+.wrapper::after {
+  content: "";
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100%;
+
+  pointer-events: none;
+
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(250, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  opacity: 1;
+  transition: opacity 250ms ease;
+}
+.isHiddenOverlay.wrapper::after {
+  contain: "";
+  opacity: 0;
+}
+
+.list {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.item:not(:first-child) {
+  margin-left: 30px;
+}

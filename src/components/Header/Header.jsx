@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import routes from "../../services/routes";
 import SearchInput from "../../components/SearchInput";
-import searchParams from "../../services/searchParams";
 import r from "../../services/routes";
 import s from "./Header.module.css";
 
@@ -35,21 +34,14 @@ export default class Header extends Component {
           className={s.link}
           activeClassName={s.linkAct}
         >
-          Home
-        </NavLink>
-        <NavLink
-          to={routes.movies}
-          className={s.link}
-          activeClassName={s.linkAct}
-        >
-          Movies
+          LOGO
         </NavLink>
         <div className={s.searchBox}>
           <SearchInput
+            placeholder="Search for a movie, tv show, person......"
             onSubmit={this.handleSubmit}
             onChange={this.handleChange}
             name="value"
-            value={searchParams(this.props.location.search, "query")}
           />
         </div>
       </header>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { getImageUrl, searchMovie } from "../../services/search/search";
+import CartItem from "../../components/CartItem";
+import { searchMovie } from "../../services/search/search";
 import s from "./MoviesPage.module.css";
 import searchParams from "../../services/searchParams";
 
@@ -37,14 +37,16 @@ export default class MoviesPage extends Component {
     return (
       <div>
         {movies && (
-          <ul>
-            {movies.map(({ title, id }) => (
-              <li key={id}>
-                <Link
-                  to={{ pathname: `${match.path}/${id}`, state: { query } }}
-                >
-                  {title}
-                </Link>
+          <ul className={s.list}>
+            {movies.map((item) => (
+              <li key={item.id} className={s.item}>
+                <CartItem
+                  to={{
+                    pathname: `${match.path}/${item.id}`,
+                    state: { query },
+                  }}
+                  item={item}
+                ></CartItem>
               </li>
             ))}
           </ul>
